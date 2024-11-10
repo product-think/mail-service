@@ -10,7 +10,7 @@ import java.util.Optional;
 
 public interface AccountRepository extends JpaRepository<Account, Long> {
     Optional<Account> findBySystemEnableAndLoginId(Boolean systemEnable, String loginId);
-    Optional<Account> findBySystemEnableAndIpAddress(Boolean systemEnable, String ipAddress);
+    Optional<Account> findBySystemEnableAndReferer(Boolean systemEnable, String referer);
 
     @Query (nativeQuery = true,
             value = "select a.* " +
@@ -18,6 +18,6 @@ public interface AccountRepository extends JpaRepository<Account, Long> {
                     "where a.SYSTEM_ENABLE = 1 " +
                     "    and a.NAME like :name " +
                     "    and a.LOGIN_ID like :email " +
-                    "    and a.IP_ADDRESS like :ipAddress")
-    List<Account> find(@Param("name") String name, @Param("email") String email, @Param("ipAddress") String ipAddress);
+                    "    and a.REFERER like :referer")
+    List<Account> find(@Param("name") String name, @Param("email") String email, @Param("referer") String referer);
 }

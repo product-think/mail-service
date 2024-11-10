@@ -34,8 +34,8 @@ public class AdminAccountController {
             Principal principal,
             @RequestParam(name = "name") String name,
             @RequestParam(name = "email") String email,
-            @RequestParam(name = "ipAddress") String ipAddress) {
-        return this.accountService.find(name, email, ipAddress);
+            @RequestParam(name = "referer") String referer) {
+        return this.accountService.find(name, email, referer);
     }
 
     @GetMapping(value = "/find-login-id")
@@ -56,7 +56,7 @@ public class AdminAccountController {
             @RequestParam(name = "loginId") String loginId,
             @RequestParam(name = "password") String password,
             @RequestParam(name = "authRole") String authRole,
-            @RequestParam(name = "ipAddress") String ipAddress
+            @RequestParam(name = "referer") String referer
     ) {
 
         AccountDto account;
@@ -75,7 +75,7 @@ public class AdminAccountController {
         account.setName(name);
         account.setLoginId(loginId);
         account.setRoles(authRole);
-        account.setIpAddress(ipAddress);
+        account.setReferer(referer);
         AccountDto newAccount = this.accountService.update(account); // NOTE: アカウント情報更新
         return newAccount;
     }

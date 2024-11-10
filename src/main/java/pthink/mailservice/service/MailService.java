@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import pthink.mailservice.dto.MailLogDto;
 import pthink.mailservice.entity.MailLog;
 import pthink.mailservice.repository.MailLogRepository;
+import pthink.mailservice.utility.SU;
 
 import java.util.Date;
 
@@ -22,26 +23,35 @@ public class MailService {
     private final ModelMapper modelMapper;
     private final JavaMailSender javaMailSender;
 
-    public void send(MailLogDto mailLogDto) {
+    public void send(MailLogDto mailLog) {
         MimeMessage message = javaMailSender.createMimeMessage();
         try {
             MimeMessageHelper helper = new MimeMessageHelper(message, true);
-            helper.setFrom(mailLogDto.getAddressFrom());
-            helper.setTo(mailLogDto.getAddressTo());
-            helper.setSubject(mailLogDto.getSubject());
-            helper.setText(mailLogDto.getBody());
+            helper.setFrom(mailLog.getAddressFrom());
+            helper.setTo(mailLog.getAddressTo());
+
+            if (SU.notEmpty(mailLog.getAddressCc())) {
+                helper.setCc(mailLog.getAddressCc());
+            }
+
+            if (SU.notEmpty(mailLog.getAddressBcc())) {
+                helper.setBcc(mailLog.getAddressBcc());
+            }
+
+            helper.setSubject(mailLog.getSubject());
+            helper.setText(mailLog.getBody());
 
             javaMailSender.send(message);
 
         } catch(Exception e) {
             log.error(e.getMessage());
-            mailLogDto.setSendFailure(true);
+            mailLog.setSendFailure(true);
         }
 
         Date now = new Date();
-        mailLogDto.setSystemEnable(true);
-        mailLogDto.setSystemCreateDate(now);
-        mailLogDto.setSystemUpdateDate(now);
-        this.mailLogRepository.saveAndFlush(modelMapper.map(mailLogDto, MailLog.class));
+        mailLog.setSystemEnable(true);
+        mailLog.setSystemCreateDate(now);
+        mailLog.setSystemUpdateDate(now);
+        this.mailLogRepository.saveAndFlush(modelMapper.map(mailLog, MailLog.class));
     }
 }

@@ -1,6 +1,7 @@
 package pthink.mailservice.controller;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -26,13 +27,22 @@ public class SendEmailController {
     @ResponseBody
     public boolean sendEmail(
             HttpServletRequest request,
+            HttpServletResponse response,
             @RequestParam("email") String email,
             @RequestParam("title") String title,
             @RequestParam("body") String body) {
-        String remoteAddr = this.getRemoteAddr(request);
-        log.info(remoteAddr);
 
-        AccountDto account = accountService.findByIpAddress(remoteAddr);
+        //リクエストのヘッダー情報の遷移元URLを取得
+        String requestHeaderReferer = request.getHeader("REFERER");
+        log.info("requestHeaderReferer:" + requestHeaderReferer);
+        String[] refererArray = requestHeaderReferer.split("/");
+        if (3 > refererArray.length) {
+            log.error("referer fail");
+            return true;
+        }
+        String referer = refererArray[0] + "//"+ refererArray[2];
+        log.info("referer:" + referer);
+        AccountDto account = accountService.findByReferer(referer);
         if (account == null) {
             log.error("account null");
             return true;
@@ -45,6 +55,8 @@ public class SendEmailController {
         mailLog.setAddressTo(email);
         mailLog.setAddressBcc(account.getLoginId());
         this.mailService.send(mailLog);
+
+        response.addHeader("Access-Control-Allow-Origin", "*");
 
         return false;
     }

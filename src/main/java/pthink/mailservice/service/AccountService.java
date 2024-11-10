@@ -9,7 +9,6 @@ import pthink.mailservice.dto.AccountDto;
 import pthink.mailservice.entity.Account;
 import pthink.mailservice.repository.AccountRepository;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -76,9 +75,9 @@ public class AccountService {
         return newDto;
     }
 
-    public List<AccountDto> find(String name, String email, String ipAddress) {
+    public List<AccountDto> find(String name, String email, String referer) {
         List<Account> entities = this.accountRepository.find(
-                "%" + name + "%", "%" + email + "%", "%" + ipAddress + "%");
+                "%" + name + "%", "%" + email + "%", "%" + referer + "%");
         if (null == entities || entities.isEmpty()) {
             return null;
         }
@@ -97,8 +96,8 @@ public class AccountService {
         return dto;
     }
 
-    public AccountDto findByIpAddress(String ipAddress) {
-        Optional<Account> optional = this.accountRepository.findBySystemEnableAndIpAddress(true, ipAddress);
+    public AccountDto findByReferer(String referer) {
+        Optional<Account> optional = this.accountRepository.findBySystemEnableAndReferer(true, referer);
         if (optional.isEmpty()) {
             return null;
         }

@@ -29,8 +29,8 @@ public class Account implements Serializable {
     @Column(name = "ROLES")
     private String roles;
 
-    @Column(name = "IP_ADDRESS")
-    private String ipAddress;
+    @Column(name = "REFERER")
+    private String referer;
 
     @Column(name = "SYSTEM_ENABLE", nullable = false)
     private Boolean systemEnable;

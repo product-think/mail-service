@@ -12,7 +12,7 @@ public class AccountDto {
     private String password;
     private String name;
     private String roles;
-    private String ipAddress;
+    private String referer;
     private Boolean authAdmin;
     private Boolean authCompany;
     private Boolean authCandidate;

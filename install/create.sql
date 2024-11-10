@@ -30,7 +30,7 @@ create table ACCOUNT
     PASSWORD           varchar(255) not null,
     ROLES              varchar(255),
     NAME               varchar(255),
-    IP_ADDRESS         varchar(255),
+    REFERER            varchar(255),
     SYSTEM_CREATE_DATE datetime(6)  not null,
     SYSTEM_ENABLE      bit          not null,
     SYSTEM_UPDATE_DATE datetime(6)  not null

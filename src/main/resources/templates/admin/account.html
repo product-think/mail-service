@@ -28,7 +28,7 @@
             const ajaxParam = {
                 name: $('#find-name').val(),
                 email: $('#find-email').val(),
-                ipAddress: $('#find-ipAddress').val(),
+                referer: $('#referer').val(),
             };
 
             $.ajax({
@@ -80,8 +80,8 @@
             $('#password').closest('.form-group').hide();
             $('#password').closest('.form-group').find('.field-alert').text('');
             $('input[name="authRole"][value="' + data.roles + '"]').prop('checked', true);
-            $('#ipAddress').val(data.ipAddress);
-            $('#ipAddress').closest('.form-group').find('.field-alert').text('');
+            $('#referer').val(data.referer);
+            $('#referer').closest('.form-group').find('.field-alert').text('');
 
             $('#update-btn').text('更新する');
         }
@@ -133,12 +133,12 @@
                 validate = true;
             }
 
-            // NOTE: IPアドレス
-            const ipAddress = $('#ipAddress').val();
-            if (ipAddress) {
-                $('#ipAddress').closest('.form-group').find('.field-alert').text('');
+            // NOTE: 遷移元URL
+            const referer = $('#referer').val();
+            if (referer) {
+                $('#referer').closest('.form-group').find('.field-alert').text('');
             } else {
-                $('#ipAddress').closest('.form-group').find('.field-alert').text('入力してください');
+                $('#referer').closest('.form-group').find('.field-alert').text('入力してください');
                 validate = true;
             }
 
@@ -207,7 +207,7 @@
                 loginId: $('#loginId').val(),
                 password: $('#password').val(),
                 authRole: $('input[name="authRole"]:checked').val(),
-                ipAddress: $('#ipAddress').val(),
+                referer: $('#referer').val(),
             };
 
             $.ajax({
@@ -272,7 +272,7 @@
             let th2 = $('<th>').addClass('text-center').text('名前');
             let th3 = $('<th>').addClass('text-center').text('メールアドレス');
             let th4 = $('<th>').addClass('text-center').text('権限');
-            let th5 = $('<th>').addClass('text-center').text('IPアドレス');
+            let th5 = $('<th>').addClass('text-center').text('遷移元URL');
             let th6 = $('<th>').addClass('text-center');
             let tr = $('<tr>');
             tr.append(th1, th2, th3, th4, th5, th6);
@@ -289,7 +289,7 @@
                 let td2 = $('<td>').addClass('text-center align-middle').text(item.name);
                 let td3 = $('<td>').addClass('text-center align-middle').text(item.loginId);
                 let td4 = $('<td>').addClass('text-center align-middle').text(item.roles);
-                let td5 = $('<td>').addClass('text-center align-middle').text(item.ipAddress);
+                let td5 = $('<td>').addClass('text-center align-middle').text(item.referer);
                 let td6 = $('<td>').addClass('text-center align-middle');
 
                 {
@@ -382,8 +382,8 @@
             </div>
 
             <div class="col-auto">
-                <label for="find-name">IPアドレス</label>
-                <input type="text" class="form-control" id="find-ipAddress" placeholder="IPアドレス" readonly>
+                <label for="find-name">遷移元URL</label>
+                <input type="text" class="form-control" id="find-referer" placeholder="遷移元URL" readonly>
             </div>
             <div class="col align-self-end">
                 <div class="btn-group">
@@ -440,8 +440,8 @@
                     <p class="text-danger field-alert"></p>
                 </div>
                 <div class="form-group">
-                    <label for="name">IPアドレス <span class="text-danger">*</span></label>
-                    <input type="text" class="form-control" id="ipAddress" name="ipAddress" placeholder="IPアドレス">
+                    <label for="name">遷移元URL <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" id="referer" name="referer" placeholder="遷移元URL">
                     <p class="text-danger field-alert"></p>
                 </div>
             </div>
