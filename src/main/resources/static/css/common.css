@@ -1,0 +1,56 @@
+small {
+    font-size: .75rem;
+}
+
+/* page-head */
+.page-head {
+    padding-top: 32px;
+}
+.page-head__title {
+    margin: 0;
+}
+
+/* main */
+.main {
+    padding: 32px 0 64px;
+}
+
+/* table */
+table th {
+    font-size: .75rem;
+    font-weight: 700;
+    color: #6c757d !important;
+    white-space: nowrap;
+}
+table td {
+    word-break: break-all;
+}
+table .btn-sm {
+    --bs-btn-padding-y: .25rem;
+    --bs-btn-padding-x: .5rem;
+    --bs-btn-font-size: .75rem;
+}
+
+/* btn */
+.btn-square {
+    aspect-ratio: 1/1;
+    padding: 4px;
+    width: 40px;
+    height: 40px;
+}
+
+/* form */
+.form-group label:not(.form-check-label) {
+    font-size: .825rem;
+    margin-bottom: 2px;
+}
+.form-group label.form-check-label {
+    font-size: .825rem;
+    cursor: pointer;
+}
+.form-control.disabled,
+.form-control:disabled,
+.form-select:disabled {
+    background: rgba(234, 236, 239, .68);
+    border-color: transparent;
+}

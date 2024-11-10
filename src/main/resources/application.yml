@@ -1,0 +1,57 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://192.168.3.56:3306/mail_service
+    username: pthink
+    password: Pthink2018
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    open-in-view: false
+
+  thymeleaf:
+    prefix: file:src/main/resources/templates/
+
+  session:
+    jdbc:
+      table-name: SPRING_SESSION
+
+  mail:
+    default-encoding: UTF-8
+    protocol: smtp
+    host: smtp.sendgrid.net
+    port: 2525
+    jndi-name: mail/Session
+    username: apikey
+
+    properties.mail.smtp:
+      auth: true
+
+server:
+  port: 8114
+  servlet:
+    context-path: /web
+
+logging:
+  file:
+    name: ./logs/web.log
+  level:
+    root: info
+    org:
+      springframework:
+        web: info
+        security: debug
+      hibernate:
+        SQL: debug
+        orm.jdbc.bind: trace
+        type: trace
+        stat: debug
+    pthink:
+      mailservice: debug
+  logback:
+    rollingpolicy:
+      max-file-size: 50MB
+      max-history: 10

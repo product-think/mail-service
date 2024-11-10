@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ja" th:replace="~{layout/left-menu_layout :: layout(~{::title},~{::head/link},~{::head/script},~{::head/style},~{::body/content()})}">
+<head>
+  <script>
+    $(function() {
+      $('#nav-link-home').addClass('active');
+    })
+  </script>
+  <style></style>
+</head>
+<body>
+
+<div class="page-head">
+  <h3 class="page-head__title">ホーム</h3>
+</div>
+
+<main class="main">
+
+</main>
+</body>
+</html>

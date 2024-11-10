@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Test</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script>
+        function sendMail() {
+            const ajaxParam = {
+                email: $('#email').val(),
+                title: $('#title').val(),
+                body: $('#body').val(),
+            };
+
+            $.ajax({
+                type: 'POST',
+                url: '[[@{/send-mail/}]]',
+                data: ajaxParam,
+
+            }).then(function (data, textStatus, jqXHR) {
+                console.log('Send mail complete');
+            }, function (jqXHR, textStatus, errorThrown) {
+                ajaxError(jqXHR);
+            });
+        }
+    </script>
+</head>
+<body>
+<div>
+    <input type="text" name="email" id="email">
+    <input type="text" name="title" id="title">
+    <textarea id="body"></textarea>
+    <button onclick="sendMail()">送信</button>
+</div>
+</body>
+</html>
